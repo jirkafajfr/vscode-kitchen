@@ -4,6 +4,7 @@
   "description": "Test Kitchen support for Visual Studio Code",
   "version": "0.0.1",
   "publisher": "jirkafajfr",
+  "preview": true,
   "engines": {
     "vscode": "^1.0.0"
   },

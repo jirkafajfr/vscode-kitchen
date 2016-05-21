@@ -1,3 +1,5 @@
+"use strict";
+
 import "reflect-metadata";
 import * as interfaces from "./interfaces";
 import { Kernel } from "inversify";
@@ -10,6 +12,6 @@ let kernel = new Kernel();
 kernel.bind<interfaces.IConfiguration>("IConfiguration").to(Configuraiton);
 kernel.bind<interfaces.IInstanceInspector>("IInstanceInspector").to(InstanceInspector);
 kernel.bind<interfaces.IKitchenConfigDiscovery>("IKitchenConfigDiscovery").to(KitchenConfigDiscovery);
-kernel.bind<CommandWrapper>("CommandWrapper").to(CommandWrapper);
+kernel.bind<interfaces.ICommandWrapper>("ICommandWrapper").to(CommandWrapper);
 
 export default kernel;

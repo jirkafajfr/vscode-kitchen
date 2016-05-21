@@ -1,3 +1,5 @@
+"use strict";
+
 import { inject, injectable } from "inversify";
 import { IInstanceInspector, IConfiguration } from "./interfaces";
 import { spawn } from "child_process";
@@ -5,12 +7,12 @@ import { spawn } from "child_process";
 @injectable()
 export class InstanceInspector implements IInstanceInspector {
 
-    private config: IConfiguration;
+    private configuration: IConfiguration;
 
     public constructor(
-        @inject("IConfiguration") config: IConfiguration
+        @inject("IConfiguration") configuration: IConfiguration
     ) {
-        this.config = config;
+        this.configuration = configuration;
     }
 
     public list(): Thenable<string[]> {

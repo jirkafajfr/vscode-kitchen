@@ -1,3 +1,5 @@
+"use strict";
+
 import { injectable } from "inversify";
 import { IKitchenConfigDiscovery } from "./interfaces";
 

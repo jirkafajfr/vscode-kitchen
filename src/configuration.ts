@@ -1,3 +1,6 @@
+"use strict";
+
+import * as vscode from "vscode";
 import { injectable } from "inversify";
 import { IConfiguration } from "./interfaces";
 
@@ -11,5 +14,9 @@ export class Configuraiton implements IConfiguration {
 
     public setKitchenConfig(configName: string) {
         throw new Error("Not yet implemented");
+    }
+
+    public getWorkingDirectory(): string {
+        return vscode.workspace.rootPath;
     }
 }
