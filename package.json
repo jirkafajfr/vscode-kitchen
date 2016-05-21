@@ -11,9 +11,12 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:kitchen.list",
+    "onCommand:kitchen.converge",
     "onCommand:kitchen.create",
-    "onCommand:kitchen.destroy"
+    "onCommand:kitchen.destroy",
+    "onCommand:kitchen.list",
+    "onCommand:kitchen.test",
+    "onCommand:kitchen.verify"
   ],
   "main": "./out/src/extension",
   "contributes": {
