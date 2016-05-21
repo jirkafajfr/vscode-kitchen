@@ -1,15 +1,24 @@
 {
   "name": "vscode-kitchen",
-  "displayName": "vscode-kitchen",
-  "description": "",
+  "displayName": "Test Kitchen",
+  "description": "Test Kitchen support for Visual Studio Code",
   "version": "0.0.1",
   "publisher": "jirkafajfr",
   "engines": {
     "vscode": "^1.0.0"
   },
   "categories": [
+    "Languages",
     "Other"
   ],
+  "icon": "assets/icon.jpg",
+  "license": "MIT",
+  "bugs": { "url": "https://github.com/jirkafajfr/vscode-kitchen/issues" },
+  "homepage": "https://github.com/jirkafajfr/vscode-kitchen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jirkafajfr/vscode-kitchen.git"
+  },
   "activationEvents": [
     "onCommand:kitchen.converge",
     "onCommand:kitchen.create",
@@ -23,27 +32,33 @@
     "commands": [
       {
         "command": "kitchen.converge",
-        "title": "Kitchen: Converge"
+        "title": "Converge",
+        "category": "Kitchen"
       },
       {
         "command": "kitchen.create",
-        "title": "Kitchen: Create"
+        "title": "Create",
+        "category": "Kitchen"
       },
       {
         "command": "kitchen.destroy",
-        "title": "Kitchen: Destroy"
+        "title": "Destroy",
+        "category": "Kitchen"
       },
       {
         "command": "kitchen.list",
-        "title": "Kitchen: List"
+        "title": "List",
+        "category": "Kitchen"
       },
       {
         "command": "kitchen.test",
-        "title": "Kitchen: Test"
+        "title": "Test",
+        "category": "Kitchen"
       },
       {
         "command": "kitchen.verify",
-        "title": "Kitchen: Verify"
+        "title": "Verify",
+        "category": "Kitchen"
       }
     ]
   },
@@ -58,6 +73,7 @@
   },
   "devDependencies": {
     "typescript": "^1.8.5",
-    "vscode": "^0.11.0"
+    "vscode": "^0.11.0",
+    "tslint": "^3.10.2"
   }
 }
