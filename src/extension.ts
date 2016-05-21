@@ -1,27 +1,62 @@
-'use strict';
+"use strict";
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
+import { spawn } from "child_process";
+import kernel from "./inversify.config";
+import * as interfaces from "./interfaces";
+import { CommandWrapper } from "./command_wrapper";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "vscode-kitchen" is now active!');
+    // Create new channel for extension and register in IoC container
+    let output = vscode.window.createOutputChannel("kitchen");
+    kernel.bind<vscode.OutputChannel>("KitchenOutput").toConstantValue(output);
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', () => {
-        // The code you place here will be executed every time your command is executed
+    // Load instance inspector and fetch list of kitchen instances
+    let instanceInspector = kernel.get<interfaces.IInstanceInspector>("IInstanceInspector");
+    let instanceList = instanceInspector.list();
 
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
+    // Helper method wrapping picking of instance
+    function kitchenCommand(kitchenArgument: string) {
+        let instance = vscode.window.showQuickPick(instanceList);
+        instance.then((name) => {
+            let command = kernel.get<CommandWrapper>("CommandWrapper");
+            command.execute([kitchenArgument, name]);
+        });
+    }
+
+    let converge = vscode.commands.registerCommand("kitchen.converge", () => {
+       kitchenCommand("converge");
     });
 
-    context.subscriptions.push(disposable);
+    let create = vscode.commands.registerCommand("kitchen.create", () => {
+        kitchenCommand("create");
+    });
+
+    let destroy = vscode.commands.registerCommand("kitchen.destroy", () => {
+        kitchenCommand("destroy");
+    });
+
+    let list = vscode.commands.registerCommand("kitchen.list", () => {
+        let command = kernel.get<CommandWrapper>("CommandWrapper");
+        command.execute(["list"]);
+    });
+
+    let test = vscode.commands.registerCommand("kitchen.test", () => {
+        kitchenCommand("test");
+    });
+
+    let verify = vscode.commands.registerCommand("kitchen.verify", () => {
+        kitchenCommand("verify");
+    });
+
+    context.subscriptions.push(converge);
+    context.subscriptions.push(create);
+    context.subscriptions.push(destroy);
+    context.subscriptions.push(list);
+    context.subscriptions.push(test);
+    context.subscriptions.push(verify);
 }
 
 // this method is called when your extension is deactivated
