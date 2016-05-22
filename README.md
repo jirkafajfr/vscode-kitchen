@@ -1,1 +1,1 @@
-# Kitchen plugin for VSCode
+# Test Kitchen plugin for Visual Studio Code

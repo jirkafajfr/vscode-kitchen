@@ -8,22 +8,22 @@ import { OutputChannel } from "vscode";
 @injectable()
 export class CommandWrapper implements interfaces.ICommandWrapper {
 
-    private kitchenOutput: OutputChannel;
+    private outputChannel: OutputChannel;
     private configuration: interfaces.IConfiguration;
 
     public constructor(
-        @inject("KitchenOutput") kitchenOutput: OutputChannel,
+        @inject("KitchenOutput") outputChannel: OutputChannel,
         @inject("IConfiguration") configuration: interfaces.IConfiguration
     ) {
-        this.kitchenOutput = kitchenOutput;
+        this.outputChannel = outputChannel;
         this.configuration = configuration;
     }
 
     public execute(args: string[]) {
-        let process = spawn("kitchen", args, {cwd: this.configuration.getWorkingDirectory()});
-        this.kitchenOutput.show();
+        let process = spawn("kitchen", args, { cwd: this.configuration.getWorkingDirectory() });
+        this.outputChannel.show();
         process.stdout.on("data", (data) => {
-            this.kitchenOutput.append(`${data}`);
+            this.outputChannel.append(`${data}`);
         });
         process.stderr.on("data", (data) => {
             // TODO error

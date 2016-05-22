@@ -6,6 +6,8 @@ import kernel from "./inversify.config";
 
 export function activate(context: vscode.ExtensionContext) {
 
+    const ALL_ITEM = "[All]";
+
     // Create new channel for extension and register in IoC container
     let output = vscode.window.createOutputChannel("Test Kitchen");
     kernel.bind<vscode.OutputChannel>("KitchenOutput").toConstantValue(output);
@@ -17,11 +19,19 @@ export function activate(context: vscode.ExtensionContext) {
     // Helper method wrapping picking of instance
     function registerCommand(commandName: string): vscode.Disposable {
         return vscode.commands.registerCommand(`kitchen.${commandName}`, () => {
-            let instance = vscode.window.showQuickPick(instanceList);
-            instance.then((name) => {
-                let command = kernel.get<interfaces.ICommandWrapper>("ICommandWrapper");
-                command.execute([commandName, name]);
+            instanceList.then(items => {
+                let extendedItems = [ALL_ITEM].concat(items);
+                let instance = vscode.window.showQuickPick(extendedItems);
+                instance.then((name) => {
+                    let command = kernel.get<interfaces.ICommandWrapper>("ICommandWrapper");
+                    if (name === ALL_ITEM) {
+                        command.execute([commandName]);
+                    } else {
+                        command.execute([commandName, name]);
+                    }
+                });
             });
+
         });
     }
 
