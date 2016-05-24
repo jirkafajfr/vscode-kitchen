@@ -2,7 +2,7 @@
   "name": "vscode-kitchen",
   "displayName": "Test Kitchen",
   "description": "Test Kitchen support for Visual Studio Code",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "jirkafajfr",
   "preview": true,
   "engines": {
@@ -12,7 +12,7 @@
     "Languages",
     "Other"
   ],
-  "icon": "assets/icon.jpg",
+  "icon": "assets/icon.png",
   "license": "MIT",
   "bugs": { "url": "https://github.com/jirkafajfr/vscode-kitchen/issues" },
   "homepage": "https://github.com/jirkafajfr/vscode-kitchen",
