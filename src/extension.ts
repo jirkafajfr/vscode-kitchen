@@ -2,28 +2,25 @@
 
 import * as vscode from "vscode";
 import * as interfaces from "./interfaces";
-import kernel from "./inversify.config";
+import * as inversify from "./inversify.config";
 
 export function activate(context: vscode.ExtensionContext) {
 
-    const ALL_ITEM = "[All]";
-
-    // Create new channel for extension and register in IoC container
-    let output = vscode.window.createOutputChannel("Test Kitchen");
-    kernel.bind<vscode.OutputChannel>("KitchenOutput").toConstantValue(output);
+    inversify.registerOutputChannel();
 
     // Load instance inspector and fetch list of kitchen instances
-    let instanceInspector = kernel.get<interfaces.IInstanceInspector>("IInstanceInspector");
+    let instanceInspector = inversify.default.get<interfaces.IInstanceInspector>("IInstanceInspector");
     let instanceList = instanceInspector.list();
 
     // Helper method wrapping picking of instance
     function registerCommand(commandName: string): vscode.Disposable {
+        const ALL_ITEM = "[All]";
         return vscode.commands.registerCommand(`kitchen.${commandName}`, () => {
             instanceList.then(items => {
                 let extendedItems = [ALL_ITEM].concat(items);
                 let instance = vscode.window.showQuickPick(extendedItems);
                 instance.then((name) => {
-                    let command = kernel.get<interfaces.ICommandWrapper>("ICommandWrapper");
+                    let command = inversify.default.get<interfaces.ICommandWrapper>("ICommandWrapper");
                     if (name === ALL_ITEM) {
                         command.execute([commandName]);
                     } else {
@@ -40,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     let list = vscode.commands.registerCommand("kitchen.list", () => {
-        let command = kernel.get<interfaces.ICommandWrapper>("ICommandWrapper");
+        let command = inversify.default.get<interfaces.ICommandWrapper>("ICommandWrapper");
         command.execute(["list"]);
     });
 
