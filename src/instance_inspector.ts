@@ -18,7 +18,10 @@ export class InstanceInspector implements IInstanceInspector {
     public list(): Thenable<string[]> {
         return new Promise<string[]>((resolve, reject) => {
             let buffer = "";
-            let list = spawn("kitchen", ["list", "--bare"]);
+            let list = spawn("kitchen", ["list", "--bare"], {
+                cwd: this.configuration.getWorkingDirectory(),
+                shell: true,
+            });
             list.stdout.on("data", (data) => {
                 buffer += `${data}`;
             });

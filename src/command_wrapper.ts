@@ -31,7 +31,7 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
             vscode.window.showWarningMessage(message, YES).then(value => {
                 if (value === YES) {
                     process.kill("");
-                    //this.executeCommand(args);
+                    // this.executeCommand(args);
                 }
             });
         } else {
@@ -40,7 +40,10 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
     }
 
     private executeCommand(args: string[]) {
-        let process = spawn("kitchen", args, { cwd: this.configuration.getWorkingDirectory() });
+        let process = spawn("kitchen", args, {
+            cwd: this.configuration.getWorkingDirectory(),
+            shell: true,
+        });
         this.outputChannel.show();
         process.stdout.on("data", (data) => {
             this.outputChannel.append(`${data}`);
