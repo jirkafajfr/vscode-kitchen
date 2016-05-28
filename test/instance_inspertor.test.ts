@@ -1,10 +1,11 @@
+/// <reference path="../node_modules/typemoq/typemoq.node.d.ts" />
 import "reflect-metadata";
 import * as assert from "assert";
-import * as typemoq from "typemoq";
 import { IConfiguration, IInstanceInspector } from "../src/interfaces";
 import { Configuration } from "../src/configuration";
 import { InstanceInspector } from "../src/instance_inspector";
-import mockSpawn = require("mock-spawn");
+typemoq = require("typemoq");
+let mockSpawn = require("mock-spawn");
 
 // Defines a Mocha test suite to group tests of similar kind together
 suite("Instance Inspector Tests", () => {

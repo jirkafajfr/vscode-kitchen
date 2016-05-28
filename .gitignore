@@ -3,3 +3,4 @@ node_modules
 .kitchen
 .vscode-test
 *.vsix
+npm-debug.log
