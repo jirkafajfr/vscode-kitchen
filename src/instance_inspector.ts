@@ -7,6 +7,7 @@ import { spawn } from "child_process";
 @injectable()
 export class InstanceInspector implements IInstanceInspector {
 
+    private static get POLICYFILE_BANNER(): string { return "----->"; }
     private configuration: IConfiguration;
 
     public constructor(
@@ -25,13 +26,13 @@ export class InstanceInspector implements IInstanceInspector {
             list.stdout.on("data", (data) => {
                 buffer += `${data}`;
             });
-            list.stderr.on("data", (data) => {
-                // TODO error
-            });
             list.on("close", (code) => {
                 let machineList = buffer.toString();
                 let lines = machineList.split("\n");
-                let validLines = lines.filter(element => element.length > 0);
+                let validLines = lines.filter(element => {
+                    return element.length > 0 &&
+                           !element.startsWith(InstanceInspector.POLICYFILE_BANNER);
+                });
                 resolve(validLines);
             });
         });

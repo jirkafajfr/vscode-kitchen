@@ -5,7 +5,7 @@ import { injectable } from "inversify";
 import { IConfiguration } from "./interfaces";
 
 @injectable()
-export class Configuraiton implements IConfiguration {
+export class Configuration implements IConfiguration {
 
     public getKitchenConfig(): string {
         // TOOD: add validator

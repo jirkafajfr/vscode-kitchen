@@ -31,7 +31,6 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
             vscode.window.showWarningMessage(message, YES).then(value => {
                 if (value === YES) {
                     process.kill("SIGKILL");
-                    // this.executeCommand(args);
                 }
             });
         } else {

@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
             instanceList.then(items => {
                 let extendedItems = [ALL_ITEM].concat(items);
                 let instance = vscode.window.showQuickPick(extendedItems);
-                instance.then((name) => {
+                instance.then(name => {
                     let command = inversify.default.get<interfaces.ICommandWrapper>("ICommandWrapper");
                     if (name === ALL_ITEM) {
                         command.execute([commandName]);

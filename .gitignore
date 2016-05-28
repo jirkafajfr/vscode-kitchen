@@ -1,4 +1,5 @@
 out
 node_modules
 .kitchen
+.vscode-test
 *.vsix
