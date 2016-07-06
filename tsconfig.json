@@ -10,6 +10,10 @@
         "emitDecoratorMetadata": true
     },
     "exclude": [
-        "node_modules"
+        "assets",
+        "node_modules",
+        "out",
+        ".vscode",
+        ".vscode-test"
     ]
 }
