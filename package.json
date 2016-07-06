@@ -2,7 +2,7 @@
   "name": "vscode-kitchen",
   "displayName": "Test Kitchen",
   "description": "Test Kitchen support for Visual Studio Code",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "jirkafajfr",
   "preview": true,
   "engines": {
