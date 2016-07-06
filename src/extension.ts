@@ -16,10 +16,18 @@ export function activate(context: vscode.ExtensionContext) {
     function registerCommand(commandName: string): vscode.Disposable {
         const ALL_ITEM = "[All]";
         return vscode.commands.registerCommand(`kitchen.${commandName}`, () => {
-            instanceList.then(items => {
+            // Load all active instances in kitchen
+            instanceList.then((items: string[]) => {
+                // Prepend "all items" option and show quick pick
                 let extendedItems = [ALL_ITEM].concat(items);
                 let instance = vscode.window.showQuickPick(extendedItems);
-                instance.then(name => {
+                instance.then((name: string) => {
+                    // When no selection made skip execution
+                    if (name === undefined) {
+                        return;
+                    }
+
+                    // Retrieve command from IoC container and pass selected instance as argument
                     let command = inversify.default.get<interfaces.ICommandWrapper>("ICommandWrapper");
                     if (name === ALL_ITEM) {
                         command.execute([commandName]);
