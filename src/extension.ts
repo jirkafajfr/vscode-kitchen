@@ -39,17 +39,25 @@ export function activate(context: vscode.ExtensionContext) {
         });
     }
 
+    // Creates standard kitchen commands with instance list submenu
     ["converge", "create", "destroy", "test", "verify"].forEach(name => {
         let command = registerCommand(name);
         context.subscriptions.push(command);
     });
 
+    // Creates kitchen list command
     let list = vscode.commands.registerCommand("kitchen.list", () => {
         let command = inversify.default.get<interfaces.ICommandWrapper>("ICommandWrapper");
         command.execute(["list"]);
     });
-
     context.subscriptions.push(list);
+
+    // Creates watcher for .kitchen.yml which refreshes instance list in background
+    let watcher = vscode.workspace.createFileSystemWatcher("**/.kitchen.yml", false, false, true);
+    watcher.onDidChange(listener => {
+        instanceList = instanceInspector.list();
+    });
+    context.subscriptions.push(watcher);
 }
 
 // this method is called when your extension is deactivated
