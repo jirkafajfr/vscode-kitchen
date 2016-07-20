@@ -3,6 +3,7 @@
 .kitchen/**
 typings/**
 out/test/**
+out/.vscode-test/**
 test/**
 src/**
 **/*.map
@@ -10,4 +11,6 @@ src/**
 tsconfig.json
 tslint.json
 .kitchen.yml
+.travis.yml
 *.vsix
+*.zip
