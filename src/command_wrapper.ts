@@ -30,7 +30,9 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
             message += "Do you want to abort currently running process?";
             vscode.window.showWarningMessage(message, YES).then(value => {
                 if (value === YES) {
-                    process.kill("SIGKILL");
+                    let treeKill = require("tree-kill");
+                    treeKill(process.pid, "SIGKILL");
+                    this.outputChannel.appendLine(`VSCode Test Kitchen: Process ${process.pid} was terminated.`);
                 }
             });
         } else {

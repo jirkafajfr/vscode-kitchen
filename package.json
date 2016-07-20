@@ -2,7 +2,7 @@
   "name": "vscode-kitchen",
   "displayName": "Test Kitchen",
   "description": "Test Kitchen support for Visual Studio Code",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "jirkafajfr",
   "preview": true,
   "engines": {
@@ -72,7 +72,8 @@
   "dependencies": {
     "inversify": "^2.0.0-beta.6",
     "inversify-dts": "^1.0.1",
-    "reflect-metadata": "^0.1.3" 
+    "reflect-metadata": "^0.1.3",
+    "tree-kill": "^1.1.0"
   },
   "devDependencies": {
     "typescript": "^1.8.10",
