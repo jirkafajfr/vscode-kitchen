@@ -1,6 +1,6 @@
 "use strict";
 
-import { ChildProcess } from "child_process";
+import { Process } from "./process";
 
 export interface IInstanceInspector {
     list(): Thenable<string[]>;
@@ -22,7 +22,7 @@ export interface ICommandWrapper {
     execute(args: string[]);
 }
 
-export interface IProcessMonitor {
-    getCurrentProcess(): ChildProcess;
-    setCurrentProcess(process: ChildProcess);
+export interface IProcessManager {
+    getCurrentProcess(): Process;
+    createProcess(args: string[]): Process;
 }
