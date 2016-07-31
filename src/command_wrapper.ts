@@ -25,8 +25,8 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
         const YES = "Yes";
         let process = this.processManager.getCurrentProcess();
         if (process != null) {
-            let message = "Another kitchen command is currently running. ";
-            message += "Do you want to abort currently running process?";
+            let message = `Process '${process.getName()}' (pid: ${process.getPID()}) is currently running. `;
+            message += "Do you want to terminate it first?";
             vscode.window.showWarningMessage(message, YES).then(value => {
                 if (value === YES) {
                     process.kill();
@@ -58,7 +58,12 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
 
     // Removes whitespaces & truncates message when longer than 50 characters
     private printableStatus(message: string) {
-        let printable = message.trim().substr(0, 50);
-        return printable.length !== message.length ? `${printable} ...` : printable;
+        const trimmed = message.trim();
+        let printable = trimmed.substr(0, 50);
+        // Suffix with "..." when message was truncated (make sure that message itsel)
+        if (printable.length !== trimmed.length) {
+            printable = `${printable} ...`;
+        }
+        return printable;
     }
 }

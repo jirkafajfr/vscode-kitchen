@@ -62,24 +62,20 @@ export class ExtensionRegistrator {
         return watcher;
     }
 
-    public registerKitchenContext(): vscode.Disposable {
-        return vscode.commands.registerCommand("kitchen.runContext", () => {
-            const showOutput = "Show output window";
-            const terminate = "Terminat Kitchen command";
-            let selection = vscode.window.showQuickPick([terminate, showOutput]);
-            selection.then(command => {
-                switch (command) {
-                    case showOutput:
-                        this.outputChannel.show();
-                        break;
+    public registerTerminateProcess(): vscode.Disposable {
+        const YES = "Yes";
+        return vscode.commands.registerCommand("kitchen.terminateProcess", () => {
+            const process = this.processManager.getCurrentProcess();
 
-                    case terminate:
-                        let process = this.processManager.getCurrentProcess();
-                        if (process != null) {
-                            process.kill();
-                        }
-                        this.outputChannel.show();
-                        break;
+            if (process == null) {
+                return;
+            }
+
+            const message = `Do you want to terminate currently running process '${process.getName()}' (pid: ${process.getPID()})?`;
+            vscode.window.showInformationMessage(message, YES).then(value => {
+                if (value === YES) {
+                    process.kill();
+                    this.outputChannel.show();
                 }
             });
         });

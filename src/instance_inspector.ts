@@ -28,7 +28,9 @@ export class InstanceInspector implements IInstanceInspector {
             });
             list.on("close", (code) => {
                 let machineList = buffer.toString();
-                let lines = machineList.split("\n");
+                let lines = machineList
+                                .split("\n")                    // separate by new line
+                                .map(element => element.trim()); // remove white spaces (\r on windows, etc ..)
                 let validLines = lines.filter(element => {
                     return element.length > 0 &&
                            !element.startsWith(InstanceInspector.POLICYFILE_BANNER);

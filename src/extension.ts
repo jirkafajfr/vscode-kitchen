@@ -19,6 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
         context.subscriptions.push(registrator.registerCommand(name));
     });
 
-    context.subscriptions.push(registrator.registerKitchenContext());
+    context.subscriptions.push(registrator.registerTerminateProcess());
     context.subscriptions.push(registrator.registerWatcher());
 }

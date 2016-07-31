@@ -19,6 +19,10 @@ export class Process {
         return this.name;
     }
 
+    public getPID(): number {
+        return this.childProcess.pid;
+    }
+
     public getChildProcess(): ChildProcess {
         return this.childProcess;
     }
@@ -27,7 +31,7 @@ export class Process {
         let treeKill = require("tree-kill");
         treeKill(this.childProcess.pid, "SIGKILL");
 
-        const message = `Termination request was sent to process ${this.childProcess.pid} running the command '${this.name}'.`;
+        const message = `Termination request was sent to process ${this.childProcess.pid} running command '${this.name}'.`;
         this.outputChannel.appendLine(message);
     }
 }

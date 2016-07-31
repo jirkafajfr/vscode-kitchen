@@ -24,7 +24,7 @@ export function registerUIElements() {
     kernel.bind<vscode.OutputChannel>("KitchenOutput").toConstantValue(output);
 
     let statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-    statusBarItem.command = "kitchen.runContext";
+    statusBarItem.command = "kitchen.terminateProcess";
     kernel.bind<vscode.StatusBarItem>("KitchenStatusBarItem").toConstantValue(statusBarItem);
 }
 
