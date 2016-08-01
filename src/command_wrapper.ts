@@ -40,6 +40,10 @@ export class CommandWrapper implements interfaces.ICommandWrapper {
     private executeCommand(args: string[]) {
         let process = this.processManager.createProcess(args);
 
+        // Reset content of UI elements
+        this.statusBarItem.text = "";
+
+        // Show UI elements
         this.outputChannel.show();
         this.statusBarItem.show();
 
